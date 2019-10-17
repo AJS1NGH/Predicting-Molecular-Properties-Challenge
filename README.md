@@ -1,6 +1,7 @@
 # Predicting-Molecular-Properties-Challenge
 
 **Overview**
+
 - Every coupling was treated as its own graph
 - For the same molecule, graphs of 2 different couplings were different from each other.
 - Used the MPNN from the Gilmer paper https://arxiv.org/abs/1704.01212
@@ -10,6 +11,7 @@
 - All geometric features were relative to the atoms at atom index 0 and 1 and 1 or 2 other atoms which I found.
 
 **Molecular Graph Representation**
+
 In the Gilmer Paper, a molecule is represented as a fully connected graph i.e. there are the default bonds (real bonds) and on top of that each atom is connected to each atom through a fake bond. In the paper, the point is to predict properties that belong to the whole graph and not to a particular edge or a node. So, in order to adapt to the nature of this competition, I used the following representation:
 
 - Each coupling was a data point i.e. each coupling was its own molecular graph
@@ -32,6 +34,7 @@ In the Gilmer Paper, a molecule is represented as a fully connected graph i.e. t
 Also, I made all the graphs fully bidirectional. Using a fully bidirectional graph gave me a significant improvement over a one-directional graph which was used in the paper.
 
 **Model**
+
 - The model was really basic with some additional layers and slightly larger dimensions, very similar to what is written here https://github.com/rusty1s/pytorch_geometric/blob/master/examples/qm9_nn_conv.py.
 - I added very little Dropout and BatchNorm in the initial linear transformation layer which actually led to the model performing better. 
 - I experimented with adding Dropout in the MLP used by the NNConv and it showed promising results but they were too unstable so I decided to not go through with it.
@@ -40,4 +43,5 @@ Also, I made all the graphs fully bidirectional. Using a fully bidirectional gra
 - I only trained a single model for each type (8 models total) so did not do any ensembling
 
 **Train only data**
+
 Unfortunately, towards the end of the competition I was busy with some other work so could not get a chance to play around the fc, pso etc features. 
